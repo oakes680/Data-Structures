@@ -90,6 +90,7 @@ class BinarySearchTree:
 
     # Part 2 -----------------------
 
+
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):  
@@ -113,16 +114,21 @@ class BinarySearchTree:
             removed = queue.pop(0).value
             print(removed)
 
-            # print(node.value)
-            # self.bft_print(node.left)
-            # self.bft_print(node.right)
-
-           
-
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        stack = []
+        if node:
+            stack.append(node)
+            while len(stack) > 0:
+                if stack[0].right:
+                    stack.insert(1, stack[0].right)
+
+                if stack[0].left:
+                    stack.insert(1, stack[0].left)
+
+                removed_node = stack.pop(0)
+                print(removed_node.value)
                 
 
     # Stretch Goals -------------------------
@@ -130,16 +136,20 @@ class BinarySearchTree:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        if node:
+            print(node.value)
+            self.pre_order_dft(node.left)
+            self.pre_order_dft(node.right)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        if node:
-            self.bft_print(node.left)
-            
-            print(node.value)
-
-            self.bft_print(node.right)
+        if node: 
+            # First recur on left child 
+            self.post_order_dft(node.left) 
+            # the recur on right child 
+            self.post_order_dft(node.right) 
+            # now print the data of node 
+            print(node.value),
 
 
 
@@ -152,4 +162,4 @@ tree.insert(3)
 tree.insert(4)
 tree.insert(2)
 
-tree.dft_print(tree)
+tree.in_order_print(tree)
